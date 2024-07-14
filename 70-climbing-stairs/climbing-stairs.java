@@ -1,5 +1,5 @@
 class Solution {
-    int dp[];
+    int memo[];
     int solve(int n){
 
         if(n<0){
@@ -8,17 +8,17 @@ class Solution {
         if(n == 0){
             return 1;
         }
-        if(dp[n] != -1){
-            return dp[n];
+        if(memo[n] != -1){
+            return memo[n];
         }
 
         int in=solve(n-1);
         int ex=solve(n-2);
-        return dp[n]=in+ex;
+        return memo[n]=in+ex;
     }
     public int climbStairs(int n) {
-        dp=new int[n+1];
-        Arrays.fill(dp,-1);
+        memo=new int[n+1];
+        Arrays.fill(memo,-1);
         return solve(n);
     }
 }
