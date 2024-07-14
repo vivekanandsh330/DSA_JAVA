@@ -4,6 +4,7 @@ class Solution {
         for (char ch : s.toCharArray()) {
             if (ch == ')') 
             {
+                // Creating new String to store stack till ")"
                 StringBuilder sb = new StringBuilder();
                 while (!stack.isEmpty() && stack.peek() != '(')
                 {
