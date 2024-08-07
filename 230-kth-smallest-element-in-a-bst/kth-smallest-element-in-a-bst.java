@@ -14,22 +14,27 @@
  * }
  */
 class Solution {
-  private static int number = 0;
-  private static int count = 0;
+    int k=0;
+    Set<Integer> hs=new HashSet();
+    public int kthSmallest(TreeNode root, int k) {
+      
+        inOrder(root,k);
+        int j=0;
+        int arr[]=new int[hs.size()];
+        for(int l: hs){
+            arr[j++]=l;
+        }
+        Arrays.sort(arr);
+        return arr[k-1];
+    }
+     void inOrder(TreeNode root,int k){
+        if(root.left != null){
+            inOrder(root.left,k);
+        }
+        hs.add(root.val);
+        if(root.right != null){
+            inOrder(root.right,k);
+        }
 
-  public int kthSmallest(TreeNode root, int k) {
-      count = k;
-      helper(root);
-      return number;
-  }
-  
-  public void helper(TreeNode n) {
-      if (n.left != null) helper(n.left);
-      count--;
-      if (count == 0) {
-          number = n.val;
-          return;
-      }
-      if (n.right != null) helper(n.right);
-  }
+     }
 }
