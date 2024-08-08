@@ -29,14 +29,11 @@ class Solution {
             }
             }
         }
-       
-        LinkedList<Integer> ll=new LinkedList<>();
         ListNode dummy=new ListNode(0);
         ListNode curr=dummy;
         for(Integer i: res){
-            ListNode temp1=new ListNode(i);
-            curr.next=temp1;
-            curr=temp1;
+            curr.next=new ListNode(i);
+            curr=curr.next;
         }
         return dummy.next;
     }
