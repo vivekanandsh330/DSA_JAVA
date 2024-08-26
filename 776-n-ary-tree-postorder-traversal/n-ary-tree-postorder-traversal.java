@@ -19,18 +19,12 @@ class Node {
 
 class Solution {
     public List<Integer> postorder(Node root) {
-        if(root == null){
-            List<Integer> baseList=new ArrayList<>();
-            return baseList;
+        List<Integer> list = new ArrayList<>();
+        if (root == null) {
+            return list;
         }
-
-        List<Integer> list=new ArrayList<>();
-        for(Node child: root.children){
-            List<Integer> clist=postorder(child);
-            for(int x: clist){
-                list.add(x);
-            }
-            
+        for (Node child : root.children) {
+            list.addAll(postorder(child));
         }
         list.add(root.val);
         return list;
