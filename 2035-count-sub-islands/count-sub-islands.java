@@ -1,45 +1,33 @@
 class Solution {
-    private final int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-    private boolean checkSubIsland(int[][] grid1, int[][] grid2, int i, int j) {
-        int m = grid1.length;
-        int n = grid1[0].length;
-        boolean result = true;
-        Queue<int[]> queue = new LinkedList<>(); 
-        queue.offer(new int[]{i, j});
-        grid2[i][j] = -1; 
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int x = current[0];
-            int y = current[1];
 
-            if (grid1[x][y] != 1) { 
-                result = false;
-            }
-
-            for (int[] dir : directions) {
-                int newX = x + dir[0];
-                int newY = y + dir[1];
-
-                if (newX >= 0 && newX < m && newY >= 0 && newY < n && grid2[newX][newY] == 1) {
-                    grid2[newX][newY] = -1;
-                    queue.offer(new int[]{newX, newY});
-                }
-            }
+    boolean isSubIsland(int[][] grid1, int[][] grid2,int i,int j){
+        if(i<0 || i>=grid1.length || j<0 || j>=grid1[0].length){
+            return true;
         }
-        return result;
+        if(grid2[i][j] != 1){
+            return true;
+        }
+        grid2[i][j] =-1;
+
+        boolean ans=(grid1[i][j] == 1);
+        ans=ans& isSubIsland(grid1,grid2,i+1,j);
+        ans=ans& isSubIsland(grid1,grid2,i-1,j);
+        ans=ans& isSubIsland(grid1,grid2,i,j-1);
+        ans=ans& isSubIsland(grid1,grid2,i,j+1);
+        return ans;
     }
     public int countSubIslands(int[][] grid1, int[][] grid2) {
-        int subIslands = 0;
-        int m = grid2.length; 
-        int n = grid2[0].length; 
+        int n=grid2.length;
+        int m=grid2[0].length;
+        int subIsland=0;
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid2[i][j] == 1 && checkSubIsland(grid1, grid2, i, j)) {
-                    subIslands++;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid2[i][j] == 1 && isSubIsland(grid1,grid2,i,j)){
+                    subIsland++;
                 }
             }
         }
-        return subIslands;
+        return subIsland;
     }
 }
