@@ -1,25 +1,17 @@
 class Solution {
-    private int transform(int t) {
-        int res = 0;
-        while (t > 0) {
-            res += t % 10;
-            t /= 10;
-        }
-        return res;
-    }
     public int getLucky(String s, int k) {
-        int res = 0;
-        for (char ch : s.toCharArray()) {
-            int num = ch - 'a' + 1;
-            if (num >= 10) {
-                res += num % 10 + num / 10;
-            } else {
-                res += num;
+        StringBuilder num=new StringBuilder();
+        for(char ch: s.toCharArray()){
+            num.append(ch-'a'+1);
+        }
+        int sum=0;
+        while(k-- > 0){
+            sum=0;
+            for(char ch: num.toString().toCharArray()){
+                sum+=ch-'0';
             }
+            num=new StringBuilder(Integer.toString(sum));
         }
-        while (--k > 0) {
-            res = transform(res);
-        }
-        return res;
+        return Integer.parseInt(num.toString());   
     }
 }
