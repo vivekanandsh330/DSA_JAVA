@@ -33,13 +33,12 @@ class Solution {
                 int nr=r+dirr[i];
                 int nc=c+dirc[i];
                 if(nr>=0 && nr<n && nc>=0 && nc<m &&
-                grid[nr][nc] == 1 && vis[nr][nc] == 0){
+                grid[nr][nc] == 1 && vis[nr][nc] != 2){
                     q.add(new int[]{nr,nc,v+1});
                     vis[nr][nc]=2;
                     cn++;
                 }
             }
-
         }
         if(fo != cn){
             return -1;
