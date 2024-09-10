@@ -1,22 +1,37 @@
 class Solution {
     public int minSwaps(int[] nums) {
-        int n=nums.length;
-        int TotalnoOnes=Arrays.stream(nums).sum();
-        int i=0;
-        int j=0;
-        int currOne=0;
-        int maxOne=0;
-        while(j< 2*n){
-            if(nums[j%n] == 1){
-                currOne++;
+        // window size number of 1's
+        int windowsize=0;
+        for(int num:nums){
+            if(num==1){
+                windowsize++;
             }
-            if(j-i+1 > TotalnoOnes){
-                currOne -= nums[i%n];
-                i++;
-            }
-            j++;
-            maxOne=Math.max(maxOne,currOne);
         }
-        return TotalnoOnes-maxOne;
+        // count number of 0's b/w widowsize
+        int currzero=0;
+        for(int i=0;i<windowsize;i++){
+            if(nums[i]==0){
+                currzero++;
+            }
+        }
+        //solve for remaining element
+        int minzero=currzero;
+        int start=0;
+        int end=windowsize-1;
+        while(start<nums.length){
+            // remove element is 0's than reduce currzero
+            if(nums[start]==0){
+                currzero--;
+            }
+            start++;
+
+            // sliding elment contains 0's than increment the currzero
+            end++;
+            if(nums[end%nums.length] == 0){
+                currzero++;
+            }
+            minzero=Math.min(minzero,currzero);
+        }
+        return minzero;
     }
 }
