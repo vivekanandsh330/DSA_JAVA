@@ -2,7 +2,7 @@ class Solution {
     int dp[][][];
     int solve(int i,int buy,int[] prices,int count){
          if(count > 2){
-                return(int) -1e7;
+                return Integer.MIN_VALUE;
             }
         if(i >= prices.length ){
             return 0;
