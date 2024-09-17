@@ -2,9 +2,6 @@ class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int n=matrix.length;
         int m=matrix[0].length;
-        // if(n != 0){
-            
-        // }
         int i=n-1;
         int j=0;
         while(i>=0 && j<m){
