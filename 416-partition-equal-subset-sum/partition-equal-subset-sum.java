@@ -12,6 +12,7 @@ class Solution {
     }
     boolean subsetSum(int []nums,int target,int n){
       Boolean dp[][]=new Boolean[n+1][target+1];
+      dp[0][0]=true;
       for(int i=0;i<n+1;i++){
         for(int j=0;j<target+1;j++){
             if(i == 0){
