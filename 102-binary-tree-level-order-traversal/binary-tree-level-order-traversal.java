@@ -1,25 +1,28 @@
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        Queue<TreeNode> q = new ArrayDeque<>();
-        List<List<Integer>> finalAns = new ArrayList<List<Integer>>();
-        if (root == null) {
-            return finalAns;
+        List<List<Integer>> ans=new ArrayList<>();
+        if(root==null){
+            return ans;
         }
+        Queue<TreeNode> q=new ArrayDeque<>();
         q.add(root);
-        while (!q.isEmpty()) {
-            int levels = q.size();
-            List<Integer> subLevels = new ArrayList<>();
-            for (int i = 0; i < levels; i++) {
-                if (q.peek().left != null) {
-                    q.add(q.peek().left);
+        while(!q.isEmpty()){
+            int n=q.size();
+            List<Integer> l=new ArrayList<>();
+            while(n-->0){
+                TreeNode node=q.remove();
+                l.add(node.val);
+                if(node.left!=null){
+                    q.add(node.left);
                 }
-                if (q.peek().right != null) {
-                    q.add(q.peek().right);
+                if(node.right!=null){
+                    q.add(node.right);
                 }
-                subLevels.add(q.remove().val);
+
             }
-            finalAns.add(subLevels);
+            ans.add(l);
         }
-        return finalAns;
+        // Collections.reverse(ans);
+        return ans;
     }
 }
