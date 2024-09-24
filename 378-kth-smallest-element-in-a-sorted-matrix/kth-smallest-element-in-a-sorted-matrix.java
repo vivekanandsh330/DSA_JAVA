@@ -16,7 +16,6 @@ class Solution {
         }
         return l;
     }
-
     int iscnt(int[][]matrix,int target){
         int n=matrix.length,i=n-1,j=0;
         int cou=0;
