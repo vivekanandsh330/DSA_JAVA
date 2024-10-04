@@ -7,7 +7,7 @@ class Solution {
         if (dp[idx] != -1) {
             return dp[idx];  
         }
-        for (int i = 1; i <= nums[idx] && idx + i < n; i++) { 
+        for (int i = 1; i <= nums[idx]; i++) { 
             if (solve(nums, n, idx + i) == 1) {
                 return dp[idx] = 1;  
             }
