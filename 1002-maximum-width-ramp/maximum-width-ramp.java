@@ -10,7 +10,7 @@ class Solution {
         int i=0;
         int j=0;;
         while(j<nums.length){
-           if(i<j && nums[i]>arr[j]){
+           while(i<j && nums[i]>arr[j]){
             i++;
            }
            max=Math.max(max,j-i);
