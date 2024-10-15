@@ -1,37 +1,25 @@
 class Solution {
     public int minSwaps(int[] nums) {
-        // window size number of 1's
-        int windowsize=0;
-        for(int num:nums){
-            if(num==1){
-                windowsize++;
-            }
+      int n=nums.length;
+      int count1=0;
+      for(int i=0;i<n;i++){
+        if(nums[i] == 1){
+            count1++;
         }
-        // count number of 0's b/w widowsize
-        int currzero=0;
-        for(int i=0;i<windowsize;i++){
-            if(nums[i]==0){
-                currzero++;
-            }
-        }
-        //solve for remaining element
-        int minzero=currzero;
-        int start=0;
-        int end=windowsize-1;
-        while(start<nums.length){
-            // remove element is 0's than reduce currzero
-            if(nums[start]==0){
-                currzero--;
-            }
-            start++;
-
-            // sliding elment contains 0's than increment the currzero
-            end++;
-            if(nums[end%nums.length] == 0){
-                currzero++;
-            }
-            minzero=Math.min(minzero,currzero);
-        }
-        return minzero;
+      }
+      if(count1 == 0 || count1 == n){
+        return 0;
+      }
+      int total=0;
+      for(int i=0;i<count1;i++){
+        total+=nums[i];
+      }
+      int swap=count1-total;
+      for(int i=count1;i<n+count1;i++){
+        total+=nums[i%n];
+        total-=nums[(i-count1)%n];
+        swap=Math.min(swap,count1-total);
+      }
+      return swap;
     }
 }
