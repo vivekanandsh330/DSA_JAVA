@@ -21,14 +21,16 @@ class Solution {
      void dfs(char ch[][],int i,int j){
         int n=ch.length;
         int m=ch[0].length;
+        int dir[][]={{1,0},{-1,0},{0,1},{0,-1}};
         if(i<0 || i>=n || j<0 || j>=m || ch[i][j] != '1'){
             return;
         }
         ch[i][j] ='0';
-        
-        dfs(ch,i+1,j);
-        dfs(ch,i-1,j);
-        dfs(ch,i,j+1);
-        dfs(ch,i,j-1);
+        for(int d[]:dir){
+            int nr=i+d[0];
+            int nc=j+d[1];
+            dfs(ch,nr,nc);
+        }
+
     }
 }
