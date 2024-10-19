@@ -1,23 +1,21 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals,(a,b)-> a[0]-b[0]);
-        ArrayList<int []> list=new ArrayList<>();
+       PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
+       for(int interval[]:intervals){
+        pq.add(interval);
+       }
 
-        for(int []interval:intervals){
-            if(list.size()==0){
-                list.add(interval);
-            }
-            else{
-                int []previnterval= list.get(list.size()-1);
-                if(interval[0]<=previnterval[1]){
-                    previnterval[1]=Math.max(previnterval[1],interval[1]);
-                }
-                else{
-                list.add(interval);
-                }
-            }
+       List<int []> merge=new ArrayList<>();
+
+       while(!pq.isEmpty()){
+        int curr[]=pq.poll();
+        if(merge.isEmpty() || merge.get(merge.size()-1)[1]<curr[0] ){
+            merge.add(curr);
+        }else {
+            merge.get(merge.size()-1)[1]=Math.max(merge.get(merge.size()-1)[1],curr[1]);
         }
-        return list.toArray(new int[list.size()][]);
-        
+
+       }
+       return merge.toArray(new int[merge.size()-1][]);
     }
 }
