@@ -1,22 +1,30 @@
 class Solution {
+    int dp[][];
+    int solve(int i, int curror, int maxor, int[] nums) {
+        if (i >= nums.length) {
+            if (curror == maxor) {
+                return 1;
+            }
+            return 0;
+        }
+        if(dp[i][curror] !=-1){
+            return dp[i][curror];
+        }
+        int take = solve(i + 1, curror | nums[i], maxor, nums);
+        int skip = solve(i + 1, curror, maxor, nums);
+        return dp[i][curror]=take + skip;
+    }
+
     public int countMaxOrSubsets(int[] nums) {
-        int maxor=0;
-        for(int num:nums){
+        int n = nums.length;
+        int maxor = 0;
+        for (int num : nums) {
             maxor |= num;
         }
-        int curror=0;
-        return findmaxsubset(nums,0,curror,maxor);
-    }
-    int findmaxsubset(int []nums,int idx,int curror,int maxor){
-        if(idx>=nums.length){
-            if(curror==maxor){
-                return 1;
-            }else{
-                return 0;
-            }
+        dp=new int[n+1][maxor+1];
+        for(int i[]:dp){
+            Arrays.fill(i,-1);
         }
-        int include= findmaxsubset(nums,idx+1,curror | nums[idx],maxor);
-        int exclude= findmaxsubset(nums,idx+1,curror,maxor);
-        return include+exclude;
+        return solve(0, 0, maxor, nums);
     }
 }
