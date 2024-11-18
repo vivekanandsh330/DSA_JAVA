@@ -5,23 +5,26 @@ class Solution {
         if(k == 0){
             return new int[n];
         }
-        for(int i=0;i<n;i++){
-            int currsum=0;
-            for(int j=1;j<=Math.abs(k);j++){
-                if(k>0){
-                    currsum+=code[(i+j)%n];
-                    ans[i]=currsum;
-                }
-            }
+        int i=-1;
+        int j=-1;
+        if(k >0){
+            i=1;
+            j=k;
         }
-        if(k<0){
-            for(int i=0;i<n;i++){
-                int currsum=0;
-                for(int j=1;j<=Math.abs(k);j++){
-                    currsum+=code[(i-j+n)%n];
-                    ans[i]=currsum;
-                }
-            }
+        else {
+            i=n-Math.abs(k);
+            j=n-1;
+        }
+        int currsum=0;
+        for(int p=i;p<=j;p++){
+            currsum+=code[p];
+        }
+        for(int m=0;m<n;m++){
+            ans[m]=currsum;
+            currsum -= code[i%n];
+            i++;
+            currsum += code[(j+1)%n];
+            j++;
         }
         return ans;
     }
