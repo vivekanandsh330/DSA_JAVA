@@ -19,6 +19,8 @@ class Solution {
         q.add(root);
         int ans = 0;
         while (!q.isEmpty()) {
+            int n=q.size();
+            while(n-- !=0 ){
             TreeNode curr = q.poll();
             ans = curr.val;
             if (curr.right != null) {
@@ -26,6 +28,7 @@ class Solution {
             }
             if (curr.left != null) {
                 q.add(curr.left);
+            }
             }
         }
         return ans;
