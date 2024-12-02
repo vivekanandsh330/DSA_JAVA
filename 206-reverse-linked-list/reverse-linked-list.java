@@ -10,7 +10,6 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-
         List<Integer> arr=new ArrayList<>();
         ListNode temp=head;
         while( temp != null){
@@ -18,10 +17,10 @@ class Solution {
             temp=temp.next;
         }
        Collections.reverse(arr);
-       LinkedList<Integer> linkedList = new LinkedList<>(arr);
+    //   LinkedList<Integer> linkedList = new LinkedList<>(arr);
        ListNode dummy=new ListNode(0);
        ListNode curr=dummy;
-       for(Integer l: linkedList){
+       for(int l: arr){
         curr.next=new ListNode(l);
         curr=curr.next;
        }
