@@ -10,31 +10,19 @@
  */
 class Solution {
     public ListNode mergeNodes(ListNode head) {
-        ArrayList<Integer> ans=new ArrayList<>();
-        ArrayList<Integer> res=new ArrayList<>();
-        ListNode temp=head.next;
-        while(temp != null){
-            ans.add(temp.val);
-            temp=temp.next;
-        }
-        int sum=0;
-        for(int i=0;i<ans.size();i++){
-            if(ans.get(i)!= 0){
-                sum += ans.get(i);
+        ListNode n1=head.next;
+        ListNode n2=n1;
+        while(n2 != null){
+            int sum=0;
+            while(n2 != null && n2.val != 0){
+                sum += n2.val;
+                n2=n2.next;
             }
-            else{
-                if(sum >0){  
-                res.add(sum);
-                sum=0;
-            }
-            }
+            n1.val=sum;
+            n2=n2.next;
+            n1.next=n2;
+            n1=n1.next;
         }
-        ListNode dummy=new ListNode(0);
-        ListNode curr=dummy;
-        for(Integer i: res){
-            curr.next=new ListNode(i);
-            curr=curr.next;
-        }
-        return dummy.next;
+        return head.next;
     }
 }
