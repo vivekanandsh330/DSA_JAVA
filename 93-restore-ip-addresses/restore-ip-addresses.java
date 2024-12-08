@@ -25,7 +25,7 @@ class Solution {
     }
     public List<String> restoreIpAddresses(String s) {
         n=s.length();
-        ans.clear();
+    //ans.clear();
         String curr="";
         if(n>12){
             return ans;
