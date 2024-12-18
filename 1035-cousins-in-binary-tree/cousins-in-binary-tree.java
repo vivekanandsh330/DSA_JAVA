@@ -14,42 +14,32 @@
  * }
  */
 class Solution {
+    TreeNode xparent = null;
+    TreeNode yparent = null;
+    int xdepth = -1;
+    int ydepth = -2;
     public boolean isCousins(TreeNode root, int x, int y) {
-        Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(root);
-        TreeNode xparent = null;
-        TreeNode yparent = null;
-        while (!q.isEmpty()) {
-            int n = q.size();
-            while (n-- > 0) {
-                TreeNode curr = q.poll();
-
-                if (curr.left != null) {
-                    q.add(curr.left);
-                    if (curr.left.val == x) {
-                        xparent = curr;
-                    }
-                    if (curr.left.val == y) {
-                        yparent = curr;
-                    }
-                }
-                if (curr.right != null) {
-                    q.add(curr.right);
-                    if (curr.right.val == x) {
-                        xparent = curr;
-                    }
-                    if (curr.right.val == y) {
-                        yparent = curr;
-                    }
-                }
-                if (xparent != null && yparent != null) {
-                    return xparent != yparent;
-                }
-            }
-            if ((xparent != null && yparent == null) || (xparent == null && yparent != null)) {
-                return false;
-            }
+        if(root == null){
+            return false;
         }
-        return false;
+        solve(root,x,y,0,null);
+       return ((xparent != yparent) && (xdepth == ydepth));
+    }
+    void solve(TreeNode root, int x, int y, int depth, TreeNode parent) {
+        if (root == null) {
+            return;
+        }
+        else if(root.val == x){
+            xparent=parent;
+            xdepth=depth;
+        }
+        else if(root.val == y){
+            yparent=parent;
+            ydepth=depth;
+        }
+        else {
+            solve(root.left,x,y,depth+1,root);
+            solve(root.right,x,y,depth+1,root);
+        }
     }
 }
