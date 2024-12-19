@@ -18,21 +18,11 @@ class Solution {
         if (root == null) {
             return root;
         }
-        Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(root);
-        while (!q.isEmpty()) {
-            TreeNode curr = q.poll();
-            TreeNode temp = curr.left;
-            curr.left = curr.right;
-            curr.right = temp;
-            if (curr.left != null) {
-                q.add(curr.left);
-            }
-            if (curr.right != null) {
-                q.add(curr.right);
-            }
-
-        }
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        invertTree(root.left);
+        invertTree(root.right);
         return root;
     }
 }
