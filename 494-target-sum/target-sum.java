@@ -1,26 +1,20 @@
 class Solution {
-    int dp[][];
-    int solve(int []nums,int total,int i){
+    int solve(int []nums,int i,int currsum,int target){
         if(i == nums.length){
-            if(total == 0){
+            if(currsum == target){
                 return 1;
             }
             else{
                 return 0;
             }
         }
-        if(dp[i][total+1000] != -1){
-            return dp[i][total+1000];
-        }
-        int take=solve(nums,total+nums[i],i+1);
-        int skip=solve(nums,total-nums[i],i+1);
-        return dp[i][total+1000]=take+skip;
-      }
-    public int findTargetSumWays(int[] nums, int target) { 
-        dp=new int[21][5000];
-        for(int nu[]:dp){
-            Arrays.fill(nu,-1);
-        }
-      return solve(nums,target,0);
+
+        int plus=solve(nums,i+1,currsum+nums[i],target);
+        int minus=solve(nums,i+1,currsum-nums[i],target);
+
+        return plus+minus;
+    }
+    public int findTargetSumWays(int[] nums, int target) {
+        return solve(nums,0,0,target);
     }
 }
