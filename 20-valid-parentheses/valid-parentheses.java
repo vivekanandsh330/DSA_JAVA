@@ -10,10 +10,15 @@ class Solution {
                 st.push(ch);
             }
             else{
-                if(!st.isEmpty() && ((ch == ']' && st.peek()=='[') || (ch=='}'  && st.peek()=='{') || 
-                (ch==')' && st.peek()=='('))){
+                if(!st.isEmpty() && (
+                   (ch == ']' && st.peek()=='[') 
+                || (ch=='}'  && st.peek()=='{') 
+                || (ch==')' && st.peek()=='(')
+                ))
+                {
                     st.pop();
-                }else{
+                }
+                else{
                     return false;
                 }
             }
