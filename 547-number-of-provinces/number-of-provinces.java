@@ -1,35 +1,36 @@
 class Solution {
-    public int findCircleNum(int[][] isConnected) {
-       ArrayList<ArrayList<Integer>> adjLis=new ArrayList<>();
-       for(int i=0;i<isConnected.length;i++){
-        adjLis.add(new ArrayList<Integer>());
-       }
-       for(int i=0;i<isConnected.length;i++){
-        for(int j=0;j<isConnected.length;j++){
-            if(isConnected[i][j] == 1 && i != j){
-                adjLis.get(i).add(j);
-                adjLis.get(j).add(i);
+    int n;
+
+    void dfs(Map<Integer,List<Integer>> adj,boolean vis[],int u){
+        vis[u]=true;
+        for(int v:adj.getOrDefault(u,new ArrayList<>())){
+            if(!vis[v]){
+                dfs(adj,vis,v);
             }
         }
-       }
-       int []vis=new int[isConnected.length];
-       int count=0;
-       for(int i=0;i<isConnected.length;i++){
-        if(vis[i] == 0){
-            count++;
-            dfs(i,adjLis,vis);
+    }
+    public int findCircleNum(int[][] isConnected) {
+        n=isConnected.length;
+        
+        Map<Integer,List<Integer>> adj=new HashMap<>();
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(isConnected[i][j] == 1 && i != j){
+                    adj.computeIfAbsent(i,k->new ArrayList<>()).add(j);
+                    adj.computeIfAbsent(j,k->new ArrayList<>()).add(i);
+                }
+            }
         }
-       }
+
+        int count=0;
+        boolean vis[]=new boolean[n];
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                dfs(adj,vis,i);
+                count++;
+            }
+        }
         return count;
     }
-    void dfs(int node,ArrayList<ArrayList<Integer>>adjLis,int vis[]){
-
-        vis[node]=1;
-        for(var it: adjLis.get(node)){
-            if(vis[it] == 0){
-                dfs(it,adjLis,vis);
-            }
-        }
-    }
-    
 }
