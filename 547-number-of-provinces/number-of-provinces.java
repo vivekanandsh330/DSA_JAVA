@@ -1,12 +1,18 @@
 class Solution {
     int n;
 
-    void dfs(Map<Integer,List<Integer>> adj,boolean vis[],int u){
+    void bfs(Map<Integer,List<Integer>> adj,boolean vis[],int u){
+        Queue<Integer> q=new ArrayDeque<>();
+        q.add(u);
         vis[u]=true;
-        for(int v:adj.getOrDefault(u,new ArrayList<>())){
+        while(!q.isEmpty()){
+        int u1=q.poll();
+        for(int v:adj.getOrDefault(u1,new ArrayList<>())){
             if(!vis[v]){
-                dfs(adj,vis,v);
+                q.add(v);
+                bfs(adj,vis,v);
             }
+        }
         }
     }
     public int findCircleNum(int[][] isConnected) {
@@ -27,7 +33,7 @@ class Solution {
         boolean vis[]=new boolean[n];
         for(int i=0;i<n;i++){
             if(!vis[i]){
-                dfs(adj,vis,i);
+                bfs(adj,vis,i);
                 count++;
             }
         }
