@@ -9,7 +9,7 @@ class Solution {
         int u1=q.poll();
         for(int v:adj.getOrDefault(u1,new ArrayList<>())){
             if(!vis[v]){
-                q.add(v);
+                // q.add(v);
                 bfs(adj,vis,v);
             }
         }
