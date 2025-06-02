@@ -1,27 +1,22 @@
 class Solution {
-    public boolean checkEqualPartitions(int[] nums, long target) {
-        return backtrack(nums, 0, 1, 0, 1, 0, target);
-    }
-
-    private boolean backtrack(int[] nums, int i, long prodA, int sizeA, long prodB, int sizeB, long target) {
-        if (i == nums.length) {
-            return sizeA > 0 && sizeB > 0 && prodA == target && prodB == target;
+    boolean solve(int nums[],int i,long pa,int sa,long pb,int sb,long target){
+        if(i == nums.length){
+            return sa>0 && sb>0 && pa == target && pb == target;
         }
 
-        // Include nums[i] in subset A
-        if (prodA * nums[i] <= target) {
-            if (backtrack(nums, i + 1, prodA * nums[i], sizeA + 1, prodB, sizeB, target)) {
+        if(pa*nums[i] <= target){
+            if(solve(nums,i+1,pa*nums[i],sa+1,pb,sb,target)){
                 return true;
             }
         }
-
-        // Include nums[i] in subset B
-        if (prodB * nums[i] <= target) {
-            if (backtrack(nums, i + 1, prodA, sizeA, prodB * nums[i], sizeB + 1, target)) {
+        if(pb*nums[i]<=target){
+            if(solve(nums,i+1,pa,sa,pb*nums[i],sb+1,target)){
                 return true;
             }
         }
-
         return false;
+    }
+    public boolean checkEqualPartitions(int[] nums, long target) {
+        return solve(nums,0,1,0,1,0,target);
     }
 }
